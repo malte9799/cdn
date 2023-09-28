@@ -7,7 +7,7 @@ def main():
     try:
         root_dir = './fluentui-emoji/assets'
         folder_dict = {"default":[], "color":[]}
-        for folder in os.listdir(root_dir):
+        for folder in sorted(os.listdir(root_dir)):
             key = "default" if "3D" in os.listdir(os.path.join(root_dir, folder)) else "color"
             folder_dict[key].append("_".join(folder.lower().split()))
             
