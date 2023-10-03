@@ -13,7 +13,7 @@ def main():
             # folder_dict[key].append("_".join(folder.lower().split()))
             arr.append("_".join(folder.lower().split())+key)
             
-        with open("./cdn/fluentui-emoji-list.json", "w") as f:
+        with open("./cdn/fluentui-emoji/list.json", "w") as f:
             json.dump(arr, f, ensure_ascii=False)
         return 0
 

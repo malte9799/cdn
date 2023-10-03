@@ -31,7 +31,7 @@ jobs:
           cd cdn
           git config user.name github-actions[bot]
           git config user.email github-actions@github.com
-          git add fluentui-emoji-list.json
+          git add fluentui-emoji/list.json
           if ! git diff-index --quiet HEAD; then
             git commit -m "Update fluentui-emoji-list.json"
             git push
