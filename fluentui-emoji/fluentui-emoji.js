@@ -1,7 +1,7 @@
-// Add this script to your website:  			<script src="https://cdn.jsdelivr.net/gh/malte9799/malte9799.github.io/scripts/fluentui-emoji.js"></script>
+// Add this script to your website:  		<script src="https://cdn.jsdelivr.net/gh/malte9799/cdn/fluentui-emoji/fluentui-emoji.js"></script>
 // Add a img tag with the fluentui attribute:   <img fluentui="{emoji_name}">
 // Let the script do the rest
-// Full list can be found at: 					https://malte9799.github.io/?page=icons
+// Full list can be found at: 			https://malte9799.github.io/?page=icons
 
 const img_not_found = 'https://cdn.jsdelivr.net/gh/malte9799/cdn/fluentui-emoji/not_found.png';
 
