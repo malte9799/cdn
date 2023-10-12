@@ -1,9 +1,9 @@
-// Add this script to your website:  		<script src="https://cdn.jsdelivr.net/gh/malte9799/cdn/fluentui-emoji/fluentui-emoji.js"></script>
+// Add this script to your website:  		<script src="https://malte9799.github.io/cdn/fluentui-emoji/fluentui-emoji.js"></script>
 // Add a img tag with the fluentui attribute:   <img fluentui="{emoji_name}">
 // Let the script do the rest
 // Full list can be found at: 			https://malte9799.github.io/?page=icons
 
-const img_not_found = 'https://cdn.jsdelivr.net/gh/malte9799/cdn/fluentui-emoji/not_found.png';
+const img_not_found = 'https://malte9799.github.io/cdn/fluentui-emoji/not_found.png';
 
 function iconToUrl(icon) {
 	icon = icon.replace('pinata', 'piñata');
@@ -30,8 +30,8 @@ function iconToUrl(icon) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('img').forEach((img) => {
-        if (!img.hasAttribute('fluentui')) return;
+	document.querySelectorAll('img').forEach((img) => {
+		if (!img.hasAttribute('fluentui')) return;
 		img.src = iconToUrl(img.getAttribute('fluentui'));
 	});
 });
