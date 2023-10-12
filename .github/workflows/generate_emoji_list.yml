@@ -10,9 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-            repository: microsoft/fluentui-emoji
-            token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
-            path: fluentui-emoji
+          repository: microsoft/fluentui-emoji
+          token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+          path: fluentui-emoji
 
       - uses: actions/checkout@v3
         with:
@@ -24,7 +24,7 @@ jobs:
           python-version: '3.10'
 
       - name: Run generate_emoji_list.py
-        run: python cdn/scripts/generate_emoji_list.py
+        run: python cdn/fluentui-emoji/generate_emoji_list.py
 
       - name: Push to github.com/malte9799/cdn
         run: |
