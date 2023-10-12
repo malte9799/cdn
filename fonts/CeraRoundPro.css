@@ -1,0 +1,30 @@
+@font-face {
+    font-family: CeraRoundPro;
+    font-weight: 100;
+    src: url(https://malte9799.github.io/cdn/fonts/CeraRoundPro/CeraRoundPro-Thin.woff2);
+}
+@font-face {
+    font-family: CeraRoundPro;
+    font-weight: 300;
+    src: url(https://malte9799.github.io/cdn/fonts/CeraRoundPro/CeraRoundPro-Light.woff2);
+}
+@font-face {
+    font-family: CeraRoundPro;
+    font-weight: 400;
+    src: url(https://malte9799.github.io/cdn/fonts/CeraRoundPro/CeraRoundPro-Regular.woff2);
+}
+@font-face {
+    font-family: CeraRoundPro;
+    font-weight:500;
+    src: url(https://malte9799.github.io/cdn/fonts/CeraRoundPro/CeraRoundPro-Medium.woff2);
+}
+@font-face {
+    font-family: CeraRoundPro;
+    font-weight: 700;
+    src: url(https://malte9799.github.io/cdn/fonts/CeraRoundPro/CeraRoundPro-Bold.woff2);
+}
+@font-face {
+    font-family: CeraRoundPro;
+    font-weight: 900;
+    src: url(https://malte9799.github.io/cdn/fonts/CeraRoundPro/CeraRoundPro-Black.woff2);
+}
