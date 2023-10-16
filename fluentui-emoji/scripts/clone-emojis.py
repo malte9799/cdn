@@ -3,6 +3,7 @@ import os
 import json
 import shutil
 from unidecode import unidecode
+import traceback 
 
 dir_regular = './emojis/regular/assets'
 dir_animated = './emojis/animated/Emojis'
@@ -26,6 +27,7 @@ def main():
 
   except Exception as e:
     print(repr(e))
+    traceback.print_exc()
 
 
 def fetch_regular():
