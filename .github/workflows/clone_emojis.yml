@@ -35,6 +35,8 @@ jobs:
 
       - run: pip install -r cdn/fluentui-emoji/scripts/requirements.txt
 
+      - run: tree
+
       - name: Run clone-emojis.py
         run: python cdn/fluentui-emoji/scripts/clone-emojis.py
 
