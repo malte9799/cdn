@@ -52,7 +52,7 @@ def fetch_regular():
           handle_metadata()
           continue
         
-        for style in os.listdir(emoji_path):
+        for style in os.listdir(os.path.join(emoji_path, color)):
           path_out = os.path.join(dir_output, format(emoji_name), format(style))
           path = os.path.join(emoji_path, color, style)
 
