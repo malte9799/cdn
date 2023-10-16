@@ -15,7 +15,7 @@ skin_tones = ['Default', 'Light', 'Medium-Light', 'Medium', 'Medium-Dark', 'Dark
 
 data = {}
 
-def format_string(string):
+def format(string):
   return unidecode(string).lower().replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '')
 
 
@@ -26,7 +26,6 @@ def main():
     return 0
 
   except Exception as e:
-    print(repr(e))
     traceback.print_exc()
 
 
