@@ -4,8 +4,8 @@ import json
 import shutil
 from unidecode import unidecode
 
-dir_regular = './data/regular/assets'
-dir_animated = './data/animated/Emojis'
+dir_regular = './emojis/regular/assets'
+dir_animated = './emojis/animated/Emojis'
 
 dir_output = './cdn/fluentui-emoji/Emojis'
 
