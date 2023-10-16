@@ -1,4 +1,4 @@
-name: Clone Emojis
+name: Update Emojis
 
 on:
   workflow_dispatch:
@@ -33,17 +33,18 @@ jobs:
         with:
           python-version: '3.10'
 
-      - run: pip install -r cdn/fluentui-emoji/scripts/requirements.txt
+      - name: Install Requirements
+        run: pip install -r cdn/fluentui-emoji/scripts/requirements.txt
 
-      - name: Run clone-emojis.py
+      - name: Execute script
         run: python cdn/fluentui-emoji/scripts/clone-emojis.py
 
-      - name: Push to github.com/malte9799/cdn
+      - name: Push changes
         run: |
           cd cdn
           git config user.name github-actions[bot]
           git config user.email github-actions@github.com
-          git add fluentui-emoji/Emojis
+          git add fluentui-emoji/Emojis -f
           if ! git diff-index --quiet HEAD; then
             git commit -m "Updates"
             git push

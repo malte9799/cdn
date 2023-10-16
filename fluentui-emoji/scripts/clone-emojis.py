@@ -85,7 +85,7 @@ def handle_metadata(emoji, metadata_path):
   if ('unicodeSkintones' in metadata):
     data[emoji]['unicodes'] = metadata['unicodeSkintones']
   else:
-    data[emoji]['unicodes'] = metadata['unicode']
+    data[emoji]['unicodes'] = [metadata['unicode']]
   
   f.close()
   return
