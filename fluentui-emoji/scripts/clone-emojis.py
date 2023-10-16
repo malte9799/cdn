@@ -37,6 +37,10 @@ def fetch_regular():
       path_out = os.path.join(dir_output, format(emoji_name))
       os.makedirs(path_out, exist_ok=True)
       for style in os.listdir(emoji_path):
+        if (os.path.isfile(style)):
+          handle_metadata()
+          continue
+          
         path = os.path.join(emoji_path, style)
         img = os.listdir(path)[0]
         img_extension = img.split('.')[1]
@@ -44,6 +48,10 @@ def fetch_regular():
 
     else:
       for color in os.listdir(emoji_path):
+        if (os.path.isfile(color)):
+          handle_metadata()
+          continue
+        
         for style in os.listdir(emoji_path):
           path_out = os.path.join(dir_output, format(emoji_name), format(style))
           path = os.path.join(emoji_path, color, style)
@@ -53,6 +61,8 @@ def fetch_regular():
           img_extension = img.split('.')[1]
           shutil.copy(os.path.join(path, img), os.path.join(path_out, f'{format(color)}.{img_extension}'))
       
-            
+def handle_metadata():
+  return
+       
 if __name__ == '__main__':
   sys.exit(main())
