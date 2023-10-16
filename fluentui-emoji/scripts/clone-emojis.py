@@ -7,7 +7,7 @@ from unidecode import unidecode
 dir_regular = './data/regular/assets'
 dir_animated = './data/animated/Emojis'
 
-dir_output = './cdn/Emojis'
+dir_output = './cdn/fluentui-emoji/Emojis'
 
 styles = ['3D', 'Color', 'Flat', 'High Contrast']
 skin_tones = ['Default', 'Light', 'Medium-Light', 'Medium', 'Medium-Dark', 'Dark']
