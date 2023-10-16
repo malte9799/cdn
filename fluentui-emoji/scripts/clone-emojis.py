@@ -1,6 +1,7 @@
 import sys
 import os
 import json
+import shutil
 from unidecode import unidecode
 
 dir_regular = './data/regular/assets'
@@ -13,13 +14,12 @@ skin_tones = ['Default', 'Light', 'Medium-Light', 'Medium', 'Medium-Dark', 'Dark
 
 data = {}
 
-i = 0
+def format_string(string):
+    return unidecode(string).lower().replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '')
+
+
 def main():
-  for (dirpath, dirnames, filenames) in os.walk(dir_regular):
-    print(f'Path: {dirpath}  --  DirNames: {dirnames}  --  Filenames: {filenames} \n')
-
-
-  # fetch_regular()
+  fetch_regular()
 
 
   # folder_dict = {"default":[], "color":[]}
@@ -35,19 +35,32 @@ def main():
 
 
 
-# def fetch_regular():
-#    for emoji_name in os.listdir(dir_regular):
-#       emoji_name_out = emoji_name.lower().replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '')
-#       emoji_name_out = unidecode(emoji_name_out)
-#       data[emoji_name_out] = {}
+def fetch_regular():
+   for emoji_name in os.listdir(dir_regular):
 
-#       emoji_path = os.path.join(dir_regular, emoji_name)
-#       if (os.path.exists(os.path.join(emoji_path, '3D'))): # No Skin Tones
-#         for style in os.listdir(emoji_path):
-#           style_out = style.lower().replace(' ', '_').replace('-', '_')
-#           data[emoji_name_out][style_out] = os.path.join()
+      emoji_path = os.path.join(dir_regular, emoji_name)
+      if (os.path.exists(os.path.join(emoji_path, '3D'))): # No Skin Tones
+        for style in os.listdir(emoji_path):
+           path = os.path.join(emoji_path, style)
+           path_out = os.path.join(dir_output, format(emoji_name), format(style))
 
-#    return
+           os.makedirs(path_out, exist_ok=True)
+           img = os.listdir(path)[0]
+           img_extension = img.split('.')[1]
+           shutil.copy(os.path.join(path, img), os.path.join(path_out, f'{format(style)}.{img_extension}'))
+
+      else:
+         for color in os.listdir(emoji_path):
+           for style in os.listdir(emoji_path):
+            path = os.path.join(emoji_path, color, style)
+            path_out = os.path.join(dir_output, format(emoji_name), format(style), format(color))
+
+            os.makedirs(path_out, exist_ok=True)
+            img = os.listdir(path)[0]
+            img_extension = img.split('.')[1]
+            shutil.copy(os.path.join(path, img), os.path.join(path_out, f'{format(style)}.{img_extension}'))
+            
+
 
 # path_out = os.path.join(dir_output, emoji_name_out)
 # if not (os.path.exists(path_out)):
