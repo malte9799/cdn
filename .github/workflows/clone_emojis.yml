@@ -40,10 +40,9 @@ jobs:
 
       - name: Push to github.com/malte9799/cdn
         run: |
-          cd cdn
           git config user.name github-actions[bot]
           git config user.email github-actions@github.com
-          git add fluentui-emoji/Emojis
+          git add cdn/fluentui-emoji/Emojis
           if ! git diff-index --quiet HEAD; then
             git commit -m "Updates"
             git push

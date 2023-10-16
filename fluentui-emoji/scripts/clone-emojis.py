@@ -19,8 +19,13 @@ def format_string(string):
 
 
 def main():
-  fetch_regular()
+  try:
+    fetch_regular()
 
+    return 0
+
+  except Exception as e:
+    print(repr(e))
 
   # folder_dict = {"default":[], "color":[]}
   # arr = []
@@ -31,7 +36,7 @@ def main():
       
   # with open("./cdn/fluentui-emoji/list.json", "w") as f:
   #     json.dump(arr, f, ensure_ascii=False)
-  return 0
+  
 
 
 
@@ -84,7 +89,4 @@ def fetch_regular():
 #     return
 
 if __name__ == '__main__':
-  try:
-    sys.exit(main())
-  except Exception as e:
-    print(repr(e))
+  sys.exit(main())
