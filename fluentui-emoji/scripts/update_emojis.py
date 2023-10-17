@@ -79,7 +79,7 @@ def fetch_regular():
           shutil.copy(os.path.join(path, img), os.path.join(path_out, f'{format(color)}.{img_extension}'))
 
 def fetch_animated():
-  regex = r'_(light|medium_light|medium|medium_dark|dark)_skin_tone.png'
+  regex = r'_(light|medium_light|medium|medium_dark|dark)_skin_tone'
   for category in os.listdir(dir_animated):
     category_path = os.path.join(dir_animated, category)
     for emoji_file in os.listdir(category_path):
@@ -89,10 +89,7 @@ def fetch_animated():
       emoji = re.sub(regex, '', emoji_name)
       
       if not (emoji in data):
-        if ('not_found' in data):
-          data['not_found'].append(emoji)
-        else:
-          data['not_found'] = [emoji]
+        data.setdefault('not_found', []).append(emoji)
         continue
       
       data[emoji]['isAnimated'] = True
