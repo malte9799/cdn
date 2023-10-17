@@ -6,7 +6,7 @@ on:
     - cron: '0 0 * * 0'
 
 jobs:
-  clone_emojis:
+  update_emojis:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +37,7 @@ jobs:
         run: pip install -r cdn/fluentui-emoji/scripts/requirements.txt
 
       - name: Execute script
-        run: python cdn/fluentui-emoji/scripts/clone-emojis.py
+        run: python cdn/fluentui-emoji/scripts/update_emojis.py
 
       - name: Push changes
         run: |
