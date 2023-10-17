@@ -86,7 +86,7 @@ def fetch_animated():
       emoji_path = os.path.join(category_path, emoji_file)
       if not (is_animated_png(emoji_path)): continue
       emoji_name = format(emoji_file)
-      emoji = re.sub(regex, '', emoji_name)
+      emoji = re.sub(regex, '', emoji_name).replace('.png', '')
       
       data[emoji]['isAnimated'] = True
       if (data[emoji]['hasSkinTones']):
