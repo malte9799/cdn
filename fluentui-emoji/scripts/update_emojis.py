@@ -95,7 +95,10 @@ def fetch_animated():
       data[emoji]['isAnimated'] = True
       if (data[emoji]['hasSkinTones']):
         color = re.search(regex, emoji_name).group(1) or 'default'
-        shutil.copy(emoji_path, os.path.join(dir_output, emoji, 'animated', f'{color}.png'))
+        
+        path_out = os.path.join(dir_output, emoji, 'animated')
+        os.makedirs(path_out, exist_ok=True)
+        shutil.copy(emoji_path, os.path.join(path_out, f'{color}.png'))
         
       else:
         shutil.copy(emoji_path, os.path.join(dir_output, emoji, 'animated.png'))
