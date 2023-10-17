@@ -15,7 +15,7 @@ dir_output = './cdn/fluentui-emoji/Emojis'
 data = {}
 
 def format(string):
-  return unidecode(string).lower().replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '').replace('.png', '')
+  return unidecode(string).lower().replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '').replace('.png', '').replace(',', '').replac("'", '')
 
 def is_animated_png(file_path):
     try:
@@ -80,6 +80,8 @@ def fetch_regular():
 
 def fetch_animated():
   regex = r'_(light|medium_light|medium|medium_dark|dark)_skin_tone'
+  replacements = {'women_wrestling': 'woman_wrestling', 'men_wrestling': 'man_wrestling'}
+  addPerson = ['fairy', 'genie']
   for category in os.listdir(dir_animated):
     category_path = os.path.join(dir_animated, category)
     for emoji_file in os.listdir(category_path):
@@ -88,8 +90,9 @@ def fetch_animated():
       emoji_name = format(emoji_file)
       emoji = re.sub(regex, '', emoji_name)
       
-      if not (emoji in data):
-        data.setdefault('not_found', {})[emoji_file] = {'name': emoji_name, 'emoji': emoji}
+      emoji = try_varients(emoji)
+      if not (emoji):
+        data.setdefault('not_found', {})[emoji_file] = emoji_name
         continue
       
       data[emoji]['isAnimated'] = True
@@ -104,7 +107,12 @@ def fetch_animated():
       else:
         shutil.copy(emoji_path, os.path.join(dir_output, emoji, 'animated.png'))
   
-  
+def try_varients(emoji):
+  if (emoji in data): return emoji
+  if (emoji.replace('men', 'man') in data): return emoji.replace('men', 'man')
+  if (emoji.replace('people', 'person') in data): return emoji.replace('people', 'person')
+  return False
+
 def main():
   try:
     fetch_regular()
