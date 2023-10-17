@@ -15,7 +15,7 @@ dir_output = './cdn/fluentui-emoji/Emojis'
 data = {}
 
 def format(string):
-  return unidecode(string).lower().replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '').replace('.png', '').replace(',', '').replace("'", '')
+  return unidecode(string).lower().replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '').replace('.png', '').replace(',', '').replace("'", '').replace('_blond_', '_blonde_')
 
 def is_animated_png(file_path):
     try:
@@ -109,6 +109,7 @@ def try_varients(emoji):
   if (emoji in data): return emoji
   if (emoji.replace('men', 'man') in data): return emoji.replace('men', 'man')
   if (emoji.replace('people', 'person') in data): return emoji.replace('people', 'person')
+  if ('person_' + emoji in data): return 'person_' + emoji
   return False
 
 def main():
