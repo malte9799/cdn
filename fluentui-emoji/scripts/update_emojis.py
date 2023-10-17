@@ -94,7 +94,8 @@ def fetch_animated():
       
       data[emoji]['isAnimated'] = True
       if (data[emoji]['hasSkinTones']):
-        color = re.search(regex, emoji_name).group(1) or 'default'
+        color_match = re.search(regex, emoji_name)
+        color = color_match.group(1) if color_match else 'default'
         
         path_out = os.path.join(dir_output, emoji, 'animated')
         os.makedirs(path_out, exist_ok=True)
