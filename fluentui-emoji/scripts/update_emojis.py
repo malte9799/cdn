@@ -12,7 +12,7 @@ dir_animated = './emojis/animated/Emojis'
 
 dir_output = './cdn/fluentui-emoji/Emojis'
 
-data = {}
+data = {'not_found': []}
 
 def format(string):
   string = unidecode(string).lower().replace(' ', '_').replace('-', '_')
@@ -103,8 +103,10 @@ def fetch_animated():
       emoji = re.sub(regex, '', emoji_name)
       
       emoji = try_varients(emoji)
-      if not (emoji and not emoji in data['not_found']):
-        data.setdefault('not_found', []).append(emoji)
+      if not (emoji):
+        e = re.sub(regex, '', emoji_name)
+        if (e not in data['not_found']):
+          data['not_found'].append(e)
         continue
       
       data[emoji]['isAnimated'] = True
