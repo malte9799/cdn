@@ -42,6 +42,18 @@ def handle_metadata(emoji, metadata_path):
   f.close()
   return
        
+def try_varients(emoji):
+  if (emoji in data): return emoji
+  if (emoji.replace('men', 'man') in data): return emoji.replace('men', 'man')
+  if (emoji.replace('people', 'person') in data): return emoji.replace('people', 'person')
+  if ('person_' + emoji in data): return 'person_' + emoji
+
+  if (emoji == 'mermaid' and 'woman_merpeople' in data): return 'woman_merpeople'
+  if (emoji == 'merman' and 'man_merpeople' in data): return 'man_merpeople'
+  if (emoji == 'merperson' and 'person_merpeople' in data): return 'person_merpeople'
+
+  return False
+
 
 def fetch_regular():
   for emoji_name in os.listdir(dir_regular):
@@ -91,8 +103,8 @@ def fetch_animated():
       emoji = re.sub(regex, '', emoji_name)
       
       emoji = try_varients(emoji)
-      if not (emoji):
-        data.setdefault('not_found', {})[emoji_file] = emoji_name
+      if not (emoji and not emoji in data['not_found']):
+        data.setdefault('not_found', []).append(emoji)
         continue
       
       data[emoji]['isAnimated'] = True
@@ -106,18 +118,6 @@ def fetch_animated():
         
       else:
         shutil.copy(emoji_path, os.path.join(dir_output, emoji, 'animated.png'))
-  
-def try_varients(emoji):
-  if (emoji in data): return emoji
-  if (emoji.replace('men', 'man') in data): return emoji.replace('men', 'man')
-  if (emoji.replace('people', 'person') in data): return emoji.replace('people', 'person')
-  if ('person_' + emoji in data): return 'person_' + emoji
-
-  if (emoji == 'mermaid' and 'woman_merpeople' in data): return 'woman_merpeople'
-  if (emoji == 'merman' and 'man_merpeople' in data): return 'man_merpeople'
-  if (emoji == 'merperson' and 'person_merpeople' in data): return 'person_merpeople'
-
-  return False
 
 def main():
   try:
