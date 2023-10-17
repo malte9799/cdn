@@ -89,7 +89,7 @@ def fetch_animated():
       emoji = re.sub(regex, '', emoji_name)
       
       if not (emoji in data):
-        data.setdefault('not_found', []).append(emoji)
+        data.setdefault('not_found', {})[emoji_file] = {'name': emoji_name, 'emoji': emoji}
         continue
       
       data[emoji]['isAnimated'] = True
