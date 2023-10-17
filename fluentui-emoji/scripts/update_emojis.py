@@ -15,7 +15,7 @@ dir_output = './cdn/fluentui-emoji/Emojis'
 data = {}
 
 def format(string):
-  return unidecode(string).lower().replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '').replace('.png', '').replace(',', '').replac("'", '')
+  return unidecode(string).lower().replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '').replace('.png', '').replace(',', '').replace("'", '')
 
 def is_animated_png(file_path):
     try:
@@ -80,8 +80,6 @@ def fetch_regular():
 
 def fetch_animated():
   regex = r'_(light|medium_light|medium|medium_dark|dark)_skin_tone'
-  replacements = {'women_wrestling': 'woman_wrestling', 'men_wrestling': 'man_wrestling'}
-  addPerson = ['fairy', 'genie']
   for category in os.listdir(dir_animated):
     category_path = os.path.join(dir_animated, category)
     for emoji_file in os.listdir(category_path):
