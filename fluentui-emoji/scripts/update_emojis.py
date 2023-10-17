@@ -15,7 +15,7 @@ dir_output = './cdn/fluentui-emoji/Emojis'
 data = {}
 
 def format(string):
-  return unidecode(string).lower().replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '')
+  return unidecode(string).lower().replace(' ', '_').replace('-', '_').replace('(', '').replace(')', '').replace('.png', '')
 
 def is_animated_png(file_path):
     try:
@@ -86,7 +86,14 @@ def fetch_animated():
       emoji_path = os.path.join(category_path, emoji_file)
       if not (is_animated_png(emoji_path)): continue
       emoji_name = format(emoji_file)
-      emoji = re.sub(regex, '', emoji_name).replace('.png', '')
+      emoji = re.sub(regex, '', emoji_name)
+      
+      if not (emoji in data):
+        if ('not_found' in data):
+          data['not_found'].append(emoji)
+        else:
+          data['not_found'] = [emoji]
+        continue
       
       data[emoji]['isAnimated'] = True
       if (data[emoji]['hasSkinTones']):
