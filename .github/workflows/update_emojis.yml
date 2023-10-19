@@ -34,17 +34,19 @@ jobs:
           python-version: '3.10'
 
       - name: Install Requirements
-        run: pip install -r cdn/fluentui-emoji/scripts/requirements.txt
+        run: |
+          pip install unidecode
+          pip install Pillow
 
       - name: Execute script
-        run: python cdn/fluentui-emoji/scripts/update_emojis.py
+        run: python cdn/fluent-emoji/update_emojis.py
 
       - name: Push changes
         run: |
           cd cdn
           git config user.name github-actions[bot]
           git config user.email github-actions@github.com
-          git add fluentui-emoji/Emojis -f
+          git add fluent-emoji/Emojis -f
           if ! git diff-index --quiet HEAD; then
             git commit -m "Updates"
             git push
