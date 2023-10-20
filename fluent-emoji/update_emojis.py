@@ -56,14 +56,16 @@ def try_varients(emoji):
 
   return False
 
-def save_images(image_path, output_path):
-  extension = image_path.split('.')[1]
+def save_images(img_path, output_path):
+  extension = img_path.split('.')[1]
   if (extension == 'svg'):
-    shutil.copy(image_path, f'{output_path}.svg')
+    os.makedirs('/'.join(output_path.split('/').pop()), exist_ok=True)
+    shutil.copy(img_path, f'{output_path}.svg')
   else:
-    shutil.copy(image_path, f'{output_path}/256.png')
+    os.makedirs(output_path, exist_ok=True)
+    shutil.copy(img_path, f'{output_path}/256.png')
     for size in img_sizes:
-      img = Image.open(image_path)
+      img = Image.open(img_path)
       img.thumbnail((size, size), Image.Resampling.LANCZOS)
       img.save(f'{output_path}/{size}.png')
 
@@ -75,19 +77,17 @@ def fetch_regular():
       'name': emoji_name
     }
     
-    if (os.path.exists(os.path.join(emoji_path, '3D'))):
+    if (os.path.exists(os.path.join(emoji_path, '3D'))): # No Skintones
       data[emoji]['hasSkinTones'] = False
-      path_out = os.path.join(dir_output, format(emoji_name))
-      os.makedirs(path_out, exist_ok=True)
       for style in os.listdir(emoji_path):
         path = os.path.join(emoji_path, style)
         if (os.path.isfile(path)):
           handle_metadata(emoji, path)
           continue
         img = os.listdir(path)[0]
-        # img_extension = img.split('.')[1]
-        save_images(os.path.join(path, img), os.path.join(path_out,format(style)))
-        # shutil.copy(os.path.join(path, img), os.path.join(path_out, f'{format(style)}.{img_extension}'))
+        img_path = os.path.join(path, img)
+        output_path = os.path.join(dir_output, emoji, format(style))
+        save_images(img_path, output_path)
 
     else:
       data[emoji]['hasSkinTones'] = True
@@ -97,14 +97,47 @@ def fetch_regular():
           handle_metadata(emoji, color_path)
           continue
         for style in os.listdir(color_path):
-          path_out = os.path.join(dir_output, format(emoji_name), format(style))
           path = os.path.join(color_path, style)
-
-          os.makedirs(path_out, exist_ok=True)
+          output_path = os.path.join(dir_output, emoji, format(style), format(color))
           img = os.listdir(path)[0]
-          save_images(os.path.join(path, img), os.path.join(path_out,format(color)))
-          # img_extension = img.split('.')[1]
-          # shutil.copy(os.path.join(path, img), os.path.join(path_out, f'{format(color)}.{img_extension}'))
+          img_path = os.path.join(path, img)
+          save_images(img_path, output_path)
+
+    # if (os.path.exists(os.path.join(emoji_path, '3D'))): # No Skintones
+    #   data[emoji]['hasSkinTones'] = False
+    #   path_out = os.path.join(dir_output, format(emoji_name))
+    #   for style in os.listdir(emoji_path):
+    #     if (image_path.split('.')[1] == 'png'):
+    #       path_out = os.path.join(path_out, format(style))
+    #     os.makedirs(path_out, exist_ok=True)
+
+    #     path = os.path.join(emoji_path, style)
+    #     if (os.path.isfile(path)):
+    #       handle_metadata(emoji, path)
+    #       continue
+    #     img = os.listdir(path)[0]
+    #     # img_extension = img.split('.')[1]
+    #     save_images(os.path.join(path, img), path_out)
+    #     # shutil.copy(os.path.join(path, img), os.path.join(path_out, f'{format(style)}.{img_extension}'))
+
+    # else: # Has Skintones
+    #   data[emoji]['hasSkinTones'] = True
+    #   for color in os.listdir(emoji_path):
+    #     color_path = os.path.join(emoji_path, color)
+    #     if (os.path.isfile(color_path)):
+    #       handle_metadata(emoji, color_path)
+    #       continue
+    #     for style in os.listdir(color_path):
+    #       path_out = os.path.join(dir_output, format(emoji_name), format(style))
+    #       if (image_path.split('.')[1] == 'png'):
+    #         path_out = os.path.join(path_out, format(color))
+    #       path = os.path.join(color_path, style)
+
+    #       os.makedirs(path_out, exist_ok=True)
+    #       img = os.listdir(path)[0]
+    #       save_images(os.path.join(path, img), path_out)
+    #       # img_extension = img.split('.')[1]
+    #       # shutil.copy(os.path.join(path, img), os.path.join(path_out, f'{format(color)}.{img_extension}'))
 
 def fetch_animated():
   regex = r'_(light|medium_light|medium|medium_dark|dark)_skin_tone'
@@ -124,16 +157,13 @@ def fetch_animated():
         continue
       
       data[emoji]['isAnimated'] = True
+      output_path = os.path.join(dir_output, emoji, 'animated')
       if (data[emoji]['hasSkinTones']):
         color_match = re.search(regex, emoji_name)
         color = color_match.group(1) if color_match else 'default'
-        
-        path_out = os.path.join(dir_output, emoji, 'animated')
-        os.makedirs(path_out, exist_ok=True)
-        shutil.copy(emoji_path, os.path.join(path_out, f'{color}.png'))
-        
-      else:
-        shutil.copy(emoji_path, os.path.join(dir_output, emoji, 'animated.png'))
+        output_path = os.path.join(output_path, color)
+
+      save_images(emoji_path, output_path)
 
 def main():
   try:
