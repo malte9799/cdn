@@ -46,6 +46,7 @@ jobs:
           cd cdn
           git config user.name github-actions[bot]
           git config user.email github-actions@github.com
+          git config http.postBuffer 524288000
           git add fluent-emoji/Emojis -f
           if ! git diff-index --quiet HEAD; then
             git commit -m "Updates"
