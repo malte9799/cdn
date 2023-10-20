@@ -57,7 +57,7 @@ def try_varients(emoji):
   return False
 
 def save_images(img_path, output_path):
-  extension = os.path.splitext(img_path)
+  extension = os.path.splitext(img_path)[1]
   print(extension)
   if (extension == '.svg'):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
